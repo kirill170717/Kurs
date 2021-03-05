@@ -30,7 +30,10 @@ namespace Kurs
                 {
                     if (kurs_User.RoleId == 1)
                     {
-                        
+                        Авторизация авторизация = new Авторизация();
+                        Administration administration = new Administration();
+                        administration.Show();
+                        авторизация.Close();
                     }
                     else if (kurs_User.RoleId == 2)
                     {
