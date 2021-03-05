@@ -4,10 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="cdae954b9900417882e6830b30f217c6" Name="Diagram1">
-        <EntityTypeShape EntityType="gr691_tkpModel.Kurs_Role" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="gr691_tkpModel.Kurs_User" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+      <Diagram DiagramId="ec21a8effddd48aea0329992335c70cb" Name="Diagram1">
+        <EntityTypeShape EntityType="gr691_tkpModel.Kurs_Client" Width="1.5" PointX="5.25" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="gr691_tkpModel.Kurs_Gender" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="gr691_tkpModel.Kurs_Role" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="gr691_tkpModel.Kurs_Trainer" Width="1.5" PointX="5.25" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="gr691_tkpModel.Kurs_User" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
+        <AssociationConnector Association="gr691_tkpModel.FK_Kurs_Client_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="gr691_tkpModel.FK_Kurs_Client_ToTable_1" ManuallyRouted="false" />
         <AssociationConnector Association="gr691_tkpModel.FK_Kurs_User_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="gr691_tkpModel.FK_Kurs_Trainer_ToTable" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -5,12 +5,39 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="Хранилище gr691_tkpModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Kurs_Client">
+          <Key>
+            <PropertyRef Name="IdClient" />
+          </Key>
+          <Property Name="IdClient" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Дата рождения" Type="date" Nullable="false" />
+          <Property Name="GenderId" Type="int" Nullable="false" />
+          <Property Name="Возраст" Type="int" Nullable="false" />
+          <Property Name="UnitId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kurs_Gender">
+          <Key>
+            <PropertyRef Name="IdGender" />
+          </Key>
+          <Property Name="IdGender" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Пол" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="Kurs_Role">
           <Key>
             <PropertyRef Name="IdRole" />
           </Key>
           <Property Name="IdRole" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Роль" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kurs_Trainer">
+          <Key>
+            <PropertyRef Name="IdTrainer" />
+          </Key>
+          <Property Name="IdTrainer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Достижения" Type="nvarchar" MaxLength="100" />
+          <Property Name="Опыт работы" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Kurs_User">
           <Key>
@@ -25,6 +52,42 @@
           <Property Name="Телефон" Type="nvarchar" MaxLength="11" Nullable="false" />
           <Property Name="RoleId" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Kurs_Client_ToTable">
+          <End Role="Kurs_User" Type="Self.Kurs_User" Multiplicity="1" />
+          <End Role="Kurs_Client" Type="Self.Kurs_Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kurs_User">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="Kurs_Client">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kurs_Client_ToTable_1">
+          <End Role="Kurs_Gender" Type="Self.Kurs_Gender" Multiplicity="1" />
+          <End Role="Kurs_Client" Type="Self.Kurs_Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kurs_Gender">
+              <PropertyRef Name="IdGender" />
+            </Principal>
+            <Dependent Role="Kurs_Client">
+              <PropertyRef Name="GenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kurs_Trainer_ToTable">
+          <End Role="Kurs_User" Type="Self.Kurs_User" Multiplicity="1" />
+          <End Role="Kurs_Trainer" Type="Self.Kurs_Trainer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kurs_User">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="Kurs_Trainer">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Kurs_User_ToTable">
           <End Role="Kurs_Role" Type="Self.Kurs_Role" Multiplicity="1" />
           <End Role="Kurs_User" Type="Self.Kurs_User" Multiplicity="*" />
@@ -38,8 +101,23 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Хранилище gr691_tkpModelContainer">
+          <EntitySet Name="Kurs_Client" EntityType="Self.Kurs_Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kurs_Gender" EntityType="Self.Kurs_Gender" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Kurs_Role" EntityType="Self.Kurs_Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kurs_Trainer" EntityType="Self.Kurs_Trainer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Kurs_User" EntityType="Self.Kurs_User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Kurs_Client_ToTable" Association="Self.FK_Kurs_Client_ToTable">
+            <End Role="Kurs_User" EntitySet="Kurs_User" />
+            <End Role="Kurs_Client" EntitySet="Kurs_Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kurs_Client_ToTable_1" Association="Self.FK_Kurs_Client_ToTable_1">
+            <End Role="Kurs_Gender" EntitySet="Kurs_Gender" />
+            <End Role="Kurs_Client" EntitySet="Kurs_Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kurs_Trainer_ToTable" Association="Self.FK_Kurs_Trainer_ToTable">
+            <End Role="Kurs_User" EntitySet="Kurs_User" />
+            <End Role="Kurs_Trainer" EntitySet="Kurs_Trainer" />
+          </AssociationSet>
           <AssociationSet Name="FK_Kurs_User_ToTable" Association="Self.FK_Kurs_User_ToTable">
             <End Role="Kurs_Role" EntitySet="Kurs_Role" />
             <End Role="Kurs_User" EntitySet="Kurs_User" />
@@ -50,6 +128,27 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="gr691_tkpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Kurs_Client">
+          <Key>
+            <PropertyRef Name="IdClient" />
+          </Key>
+          <Property Name="IdClient" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Дата_рождения" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="GenderId" Type="Int32" Nullable="false" />
+          <Property Name="Возраст" Type="Int32" Nullable="false" />
+          <Property Name="UnitId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Kurs_User" Relationship="Self.FK_Kurs_Client_ToTable" FromRole="Kurs_Client" ToRole="Kurs_User" />
+          <NavigationProperty Name="Kurs_Gender" Relationship="Self.FK_Kurs_Client_ToTable_1" FromRole="Kurs_Client" ToRole="Kurs_Gender" />
+        </EntityType>
+        <EntityType Name="Kurs_Gender">
+          <Key>
+            <PropertyRef Name="IdGender" />
+          </Key>
+          <Property Name="IdGender" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Пол" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Kurs_Client" Relationship="Self.FK_Kurs_Client_ToTable_1" FromRole="Kurs_Gender" ToRole="Kurs_Client" />
+        </EntityType>
         <EntityType Name="Kurs_Role">
           <Key>
             <PropertyRef Name="IdRole" />
@@ -57,6 +156,16 @@
           <Property Name="IdRole" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Роль" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Kurs_User" Relationship="Self.FK_Kurs_User_ToTable" FromRole="Kurs_Role" ToRole="Kurs_User" />
+        </EntityType>
+        <EntityType Name="Kurs_Trainer">
+          <Key>
+            <PropertyRef Name="IdTrainer" />
+          </Key>
+          <Property Name="IdTrainer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Достижения" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Опыт_работы" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Kurs_User" Relationship="Self.FK_Kurs_Trainer_ToTable" FromRole="Kurs_Trainer" ToRole="Kurs_User" />
         </EntityType>
         <EntityType Name="Kurs_User">
           <Key>
@@ -70,8 +179,34 @@
           <Property Name="Отчество" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Телефон" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Kurs_Client" Relationship="Self.FK_Kurs_Client_ToTable" FromRole="Kurs_User" ToRole="Kurs_Client" />
           <NavigationProperty Name="Kurs_Role" Relationship="Self.FK_Kurs_User_ToTable" FromRole="Kurs_User" ToRole="Kurs_Role" />
+          <NavigationProperty Name="Kurs_Trainer" Relationship="Self.FK_Kurs_Trainer_ToTable" FromRole="Kurs_User" ToRole="Kurs_Trainer" />
         </EntityType>
+        <Association Name="FK_Kurs_Client_ToTable">
+          <End Role="Kurs_User" Type="Self.Kurs_User" Multiplicity="1" />
+          <End Role="Kurs_Client" Type="Self.Kurs_Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kurs_User">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="Kurs_Client">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kurs_Client_ToTable_1">
+          <End Role="Kurs_Gender" Type="Self.Kurs_Gender" Multiplicity="1" />
+          <End Role="Kurs_Client" Type="Self.Kurs_Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kurs_Gender">
+              <PropertyRef Name="IdGender" />
+            </Principal>
+            <Dependent Role="Kurs_Client">
+              <PropertyRef Name="GenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Kurs_User_ToTable">
           <End Role="Kurs_Role" Type="Self.Kurs_Role" Multiplicity="1" />
           <End Role="Kurs_User" Type="Self.Kurs_User" Multiplicity="*" />
@@ -84,12 +219,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Kurs_Trainer_ToTable">
+          <End Role="Kurs_User" Type="Self.Kurs_User" Multiplicity="1" />
+          <End Role="Kurs_Trainer" Type="Self.Kurs_Trainer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kurs_User">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="Kurs_Trainer">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="gr691_tkpEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Kurs_Client" EntityType="Self.Kurs_Client" />
+          <EntitySet Name="Kurs_Gender" EntityType="Self.Kurs_Gender" />
           <EntitySet Name="Kurs_Role" EntityType="Self.Kurs_Role" />
+          <EntitySet Name="Kurs_Trainer" EntityType="Self.Kurs_Trainer" />
           <EntitySet Name="Kurs_User" EntityType="Self.Kurs_User" />
+          <AssociationSet Name="FK_Kurs_Client_ToTable" Association="Self.FK_Kurs_Client_ToTable">
+            <End Role="Kurs_User" EntitySet="Kurs_User" />
+            <End Role="Kurs_Client" EntitySet="Kurs_Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kurs_Client_ToTable_1" Association="Self.FK_Kurs_Client_ToTable_1">
+            <End Role="Kurs_Gender" EntitySet="Kurs_Gender" />
+            <End Role="Kurs_Client" EntitySet="Kurs_Client" />
+          </AssociationSet>
           <AssociationSet Name="FK_Kurs_User_ToTable" Association="Self.FK_Kurs_User_ToTable">
             <End Role="Kurs_Role" EntitySet="Kurs_Role" />
             <End Role="Kurs_User" EntitySet="Kurs_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kurs_Trainer_ToTable" Association="Self.FK_Kurs_Trainer_ToTable">
+            <End Role="Kurs_User" EntitySet="Kurs_User" />
+            <End Role="Kurs_Trainer" EntitySet="Kurs_Trainer" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -98,11 +260,41 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Хранилище gr691_tkpModelContainer" CdmEntityContainer="gr691_tkpEntities">
+          <EntitySetMapping Name="Kurs_Client">
+            <EntityTypeMapping TypeName="gr691_tkpModel.Kurs_Client">
+              <MappingFragment StoreEntitySet="Kurs_Client">
+                <ScalarProperty Name="IdClient" ColumnName="IdClient" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Дата_рождения" ColumnName="Дата рождения" />
+                <ScalarProperty Name="GenderId" ColumnName="GenderId" />
+                <ScalarProperty Name="Возраст" ColumnName="Возраст" />
+                <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kurs_Gender">
+            <EntityTypeMapping TypeName="gr691_tkpModel.Kurs_Gender">
+              <MappingFragment StoreEntitySet="Kurs_Gender">
+                <ScalarProperty Name="IdGender" ColumnName="IdGender" />
+                <ScalarProperty Name="Пол" ColumnName="Пол" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Kurs_Role">
             <EntityTypeMapping TypeName="gr691_tkpModel.Kurs_Role">
               <MappingFragment StoreEntitySet="Kurs_Role">
                 <ScalarProperty Name="IdRole" ColumnName="IdRole" />
                 <ScalarProperty Name="Роль" ColumnName="Роль" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kurs_Trainer">
+            <EntityTypeMapping TypeName="gr691_tkpModel.Kurs_Trainer">
+              <MappingFragment StoreEntitySet="Kurs_Trainer">
+                <ScalarProperty Name="IdTrainer" ColumnName="IdTrainer" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Достижения" ColumnName="Достижения" />
+                <ScalarProperty Name="Опыт_работы" ColumnName="Опыт работы" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

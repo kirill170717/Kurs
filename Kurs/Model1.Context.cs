@@ -25,7 +25,10 @@ namespace Kurs
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Kurs_Client> Kurs_Client { get; set; }
+        public virtual DbSet<Kurs_Gender> Kurs_Gender { get; set; }
         public virtual DbSet<Kurs_Role> Kurs_Role { get; set; }
+        public virtual DbSet<Kurs_Trainer> Kurs_Trainer { get; set; }
         public virtual DbSet<Kurs_User> Kurs_User { get; set; }
     }
 }
