@@ -26,7 +26,7 @@ namespace Kurs
                 methReg.Button_Reg(TxtLogin.Text, PasPassword.Password, TxtФамилия.Text, TxtИмя.Text, TxtОтчество.Text, TxtНомер.Text);
                 Авторизация авт = new Авторизация();
                 авт.Show();
-                Close();     
+                Close();     //добавил
         }
         private void Button_Back(object sender, RoutedEventArgs e)
         {
