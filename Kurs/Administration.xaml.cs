@@ -19,9 +19,12 @@ namespace Kurs
     /// </summary>
     public partial class Administration : Window
     {
+        gr691_tkpEntities db = new gr691_tkpEntities();
         public Administration()
         {
             InitializeComponent();
+            Таб_Тренеры.ItemsSource = db.Kurs_Trainer.ToList();
+            Таб_Пользователи.ItemsSource = db.Kurs_User.Where(a => a.RoleId == 2).ToList();
         }
     }
 }

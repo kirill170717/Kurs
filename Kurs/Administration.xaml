@@ -7,6 +7,24 @@
         mc:Ignorable="d"
         Title="Administration" Height="450" Width="800">
     <Grid>
-        
+        <DataGrid Name="Таб_Пользователи" AutoGenerateColumns="False" Height="221" VerticalAlignment="Top" Background="#99FAFAFA">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding IdUser}" Header="IdUser" Width="2*"/>
+                <DataGridTextColumn Binding="{Binding Фамилия}" Header="Фамилия" Width="2*"/>
+                <DataGridTextColumn Binding="{Binding Имя}" Header="Имя" Width="2*" />
+                <DataGridTextColumn Binding="{Binding Отчество}" Header="Отчество" Width="2*"/>
+                <DataGridTextColumn Binding="{Binding Логин}" Header="Логин" Width="2*"/>
+                <DataGridTextColumn Binding="{Binding Пароль}" Header="Пароль" Width="2*" />
+                <DataGridTextColumn Binding="{Binding Телефон}" Header="Телефон" Width="3*" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid Name="Таб_Тренеры" AutoGenerateColumns="False" Margin="0,221,0,0" Background="#99FAFAFA">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding UserId}" Header="IdUser" Width="*"/>
+                <DataGridTextColumn Binding="{Binding IdTrainer}" Header="Id" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Достижения}" Header="Достижения" Width="2*" />
+                <DataGridTextColumn Binding="{Binding Опыт_работы}" Header="Опыт работы, Лет" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>
