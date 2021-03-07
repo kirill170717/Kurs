@@ -19,6 +19,7 @@ namespace Kurs
     /// </summary>
     public partial class Client : Window
     {
+        gr691_tkpEntities db = new gr691_tkpEntities();
         public Client()
         {
             InitializeComponent();
