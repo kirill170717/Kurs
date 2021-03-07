@@ -22,6 +22,7 @@ namespace Kurs
         public Administration()
         {
             InitializeComponent();
+
         }
     }
 }

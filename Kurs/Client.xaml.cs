@@ -22,6 +22,8 @@ namespace Kurs
         public Client()
         {
             InitializeComponent();
+            Таб_Клиенты.ItemsSource = db.Client.ToList();
+            Таб_Клиенты.ItemsSource = db.Kurs_User.Where(a => a.RoleId == 3).ToList();
         }
     }
 }
